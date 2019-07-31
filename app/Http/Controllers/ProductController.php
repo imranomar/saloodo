@@ -68,16 +68,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //get ids of of products that shuold be bundled with this product
         $product = Product::findOrFail($id);
-        $product->update($request->all());
 
-        //if product is a bundle then sync the records for the relationships and attach then to the result
-        if($request->type == Cts::BUNDLE_PRODUCT_TYPE)
+        //update except for bundled items data
+        $product->update($request->except('bundledItems'));
+
+        //update bundled items - if product is a bundle then sync the records for the relationships and attach then to the result
+        if($product->type == Cts::BUNDLE_PRODUCT_TYPE)
         {
-
             $product->bundle()->sync( json_decode($request->bundledItems, false));
             $product->bundledItems = $product->bundle;
-            return  $product;
+            unset($product->bundle); //maintain consistency of variable naming from 'bundle' to 'bundledItems'
         }
 
         return  $product;
