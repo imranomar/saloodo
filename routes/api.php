@@ -14,11 +14,12 @@ use \App\Product;
 |
 */
 
+Route::resource('product','ProductController');
 
-Route::get('/all-products', function () {
-    return Product::all();
-});
+//Route::get('/all-products', function () {
+//    return Product::all();
+//});
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});

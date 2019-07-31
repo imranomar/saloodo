@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Cts;
+use App\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,16 +16,7 @@ class ProductController extends Controller
     public function index()
     {
         //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Product::all();
     }
 
     /**
@@ -34,7 +27,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product  = Product::create($request->all());
+        return  $product;
     }
 
     /**
@@ -45,19 +39,16 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        if($product->type == Cts::BUNDLE_PRODUCT_TYPE) //check if product is a bundle to save processing added queries
+        {
+            $product->bundledItems = $product->bundle;
+        }
+        return $product;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
