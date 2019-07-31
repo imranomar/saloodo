@@ -15,10 +15,7 @@ use \App\Product;
 */
 
 Route::resource('product','ProductController');
-
-//Route::get('/all-products', function () {
-//    return Product::all();
-//});
+Route::resource('order','OrderController');
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
