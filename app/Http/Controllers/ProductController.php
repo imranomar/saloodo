@@ -28,6 +28,14 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product  = Product::create($request->all());
+
+        //if product is a bundle then sync the records for the relationships and attach then to the result
+        if($request->type == Cts::BUNDLE_PRODUCT_TYPE)
+        {
+            $product->bundle()->sync( json_decode($request->bundledItems, false));
+            $product->bundledItems = $product->bundle;
+        }
+
         return  $product;
     }
 
@@ -45,6 +53,7 @@ class ProductController extends Controller
         {
             $product->bundledItems = $product->bundle;
         }
+
         return $product;
     }
 
@@ -59,7 +68,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->update($request->all());
+
+        //if product is a bundle then sync the records for the relationships and attach then to the result
+        if($request->type == Cts::BUNDLE_PRODUCT_TYPE)
+        {
+
+            $product->bundle()->sync( json_decode($request->bundledItems, false));
+            $product->bundledItems = $product->bundle;
+            return  $product;
+        }
+
+        return  $product;
+
     }
 
     /**
