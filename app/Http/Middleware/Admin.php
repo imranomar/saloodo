@@ -25,7 +25,6 @@ class Admin
             {
                 return $next($request);
             }
-            return $next($request);
         }
         return response('Unauthorized',401);
     }
