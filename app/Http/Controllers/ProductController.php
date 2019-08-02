@@ -9,6 +9,17 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
+     * Constructor
+     *
+     */
+    public function __construct()
+    {
+        //only index and show can be accessed by guest users
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -94,6 +105,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::destroy($id);
     }
 }

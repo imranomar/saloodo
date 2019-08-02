@@ -25,7 +25,20 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $order  = Order::create($request->all());
 
+        //if sync products in this order
+        if($request->products)
+        {
+            //e.g. needed product ids with their quantities [1=>['quantity'=>3],2=>['quantity'=>22]]
+            //e.g. needed product ids with their quantities print_r(json_decode('{ "1": { "quantity": "22" },"6":
+            // { "quantity": "33" }}', true));
+            $arr_prods_and_quantities = json_decode($request->products,true);
+            $order->products()->sync( $arr_prods_and_quantities);
+            $order->products_list = $order->products;
+        }
+
+        return  $order;
     }
 
     /**

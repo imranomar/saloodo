@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTypeToProductsTable extends Migration
+class AddQuantityColumnToOrdersTables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,7 @@ class AddTypeToProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
-            $table->integer('type')->default(0);
+        Schema::table('orders', function (Blueprint $table) {
         });
     }
 
@@ -26,9 +24,7 @@ class AddTypeToProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
-            $table->removeColumn('type');
+        Schema::table('orders', function (Blueprint $table) {
         });
     }
 }
