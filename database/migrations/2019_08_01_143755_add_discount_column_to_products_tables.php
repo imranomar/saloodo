@@ -14,8 +14,7 @@ class AddDiscountColumnToProductsTables extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            //
-            $table->decimal("discount",5,2);
+            $table->decimal("discount",5,2)->default(0);
         });
     }
 

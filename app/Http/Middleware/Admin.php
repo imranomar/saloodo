@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class Admin
 {
@@ -24,8 +25,8 @@ class Admin
             {
                 return $next($request);
             }
+            return $next($request);
         }
-        
-        return redirect(401);
+        return response('Unauthorized',401);
     }
 }

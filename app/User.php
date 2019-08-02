@@ -40,8 +40,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        //role is relationship above
-        if($this->role->name = Cts::ROLE_ADMIN_TYPE)
+        if($this->role_id == Cts::ROLE_ADMIN)
         {
             return true;
         }

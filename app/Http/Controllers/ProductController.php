@@ -14,8 +14,8 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-        //only index and show can be accessed by guest users
-        $this->middleware('auth')->except(['index', 'show']);
+        //user should be registered and have a role of admin to do all except viewing product details
+        $this->middleware(['auth:api','admin'])->except(['index', 'show']);
     }
 
 

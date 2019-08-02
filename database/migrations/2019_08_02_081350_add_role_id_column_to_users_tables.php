@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Cts;
 
-class AddDiscountTypeColumnToProductsTables extends Migration
+class AddRoleIdColumnToUsersTables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +14,8 @@ class AddDiscountTypeColumnToProductsTables extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->boolean("discount_type")->default(0);
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('role_id')->default(Cts::ROLE_GUEST_TYPE);
         });
     }
 
@@ -25,8 +26,8 @@ class AddDiscountTypeColumnToProductsTables extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->removeColumn('discount_type');
+        Schema::table('users', function (Blueprint $table) {
+            $table->removeColumn('role_id');
         });
     }
 }

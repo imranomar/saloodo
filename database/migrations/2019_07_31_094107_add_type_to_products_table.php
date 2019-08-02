@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Cts;
 
 class AddTypeToProductsTable extends Migration
 {
@@ -14,8 +15,7 @@ class AddTypeToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            //
-            $table->integer('type')->default(0);
+            $table->integer('type')->default(Cts::DEFAULT_PRODUCT_TYPE);
         });
     }
 
@@ -27,7 +27,6 @@ class AddTypeToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            //
             $table->removeColumn('type');
         });
     }
