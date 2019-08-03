@@ -43,8 +43,10 @@ class ProductController extends Controller
         //if product is a bundle then sync the records for the relationships and attach then to the result
         if($request->type == Cts::BUNDLE_PRODUCT_TYPE)
         {
+            //e.g. json expected ids of products that should be bundled e.g [1,3]
             $product->bundle()->sync( json_decode($request->bundledItems, false));
             $product->bundledItems = $product->bundle;
+            unset($product->bundle); //maintain consistency of variable naming from 'bundle' to 'bundledItems'
         }
 
         return  $product;
@@ -63,6 +65,7 @@ class ProductController extends Controller
         if($product->type == Cts::BUNDLE_PRODUCT_TYPE) //check if product is a bundle to save processing added queries
         {
             $product->bundledItems = $product->bundle;
+            unset($product->bundle); // consistency in naming variables
         }
 
         return $product;
@@ -88,6 +91,7 @@ class ProductController extends Controller
         //update bundled items - if product is a bundle then sync the records for the relationships and attach then to the result
         if($product->type == Cts::BUNDLE_PRODUCT_TYPE)
         {
+            //e.g. json expected ids of products that should be bundled e.g [1,3]
             $product->bundle()->sync( json_decode($request->bundledItems, false));
             $product->bundledItems = $product->bundle;
             unset($product->bundle); //maintain consistency of variable naming from 'bundle' to 'bundledItems'

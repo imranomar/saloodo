@@ -12,6 +12,15 @@ class ProductTest extends TestCase
 {
     use RefreshDatabase; //migrate new database ( in memory sqlite in phpunit conf file )
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        //Lets do this right
+        $this->withHeader('HTTP_CONTENT_TYPE','application/json');
+        $this->withHeader('HTTP_ACCEPT','application/json');
+    }
+
     /**
      * Test viewing product
      *

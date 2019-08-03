@@ -19,4 +19,6 @@ class Cts
     //http statuses
     const HTTP_STATUS_UNAUTHORIZED = 401;
     const HTTP_STATUS_OK = 200;
+
+    const CURRENCY_SYMBOL = "€" ;
 }

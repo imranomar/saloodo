@@ -30,8 +30,8 @@ class OrderController extends Controller
         //if sync products in this order
         if($request->products)
         {
-            //e.g. needed product ids with their quantities [1=>['quantity'=>3],2=>['quantity'=>22]]
-            //e.g. needed product ids with their quantities print_r(json_decode('{ "1": { "quantity": "22" },"6":
+            //e.g. array expected should be [1=>['quantity'=>3],2=>['quantity'=>22]]
+            //e.g. json expected ids with their quantities print_r(json_decode('{ "1": { "quantity": "22" },"6":
             // { "quantity": "33" }}', true));
             $arr_prods_and_quantities = json_decode($request->products,true);
             $order->products()->sync( $arr_prods_and_quantities);

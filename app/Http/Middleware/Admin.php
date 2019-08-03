@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Cts;
 use Closure;
 use Auth;
 
@@ -26,6 +27,15 @@ class Admin
                 return $next($request);
             }
         }
-        return response('Unauthorized',401);
+
+        if (! $request->expectsJson())
+        {
+            return route('login');
+        }
+        else
+        {
+            return response('Unauthorized',Cts::HTTP_STATUS_UNAUTHORIZED);
+        }
+
     }
 }
