@@ -15,7 +15,7 @@ class AddTypeToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('type')->default(Cts::DEFAULT_PRODUCT_TYPE);
+            //$table->integer('type')->default(Cts::DEFAULT_PRODUCT_TYPE);
         });
     }
 
@@ -27,7 +27,7 @@ class AddTypeToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->removeColumn('type');
+            //$table->removeColumn('type');
         });
     }
 }
