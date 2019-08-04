@@ -14,7 +14,7 @@ class AddQuantityColumnToOrderProductTable extends Migration
     public function up()
     {
         Schema::table('order_product', function (Blueprint $table) {
-            $table->integer('quantity')->default(0);
+            $table->integer('quantity')->default(0)->unsigned();
         });
     }
 

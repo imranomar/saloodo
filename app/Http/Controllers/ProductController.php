@@ -27,7 +27,7 @@ class ProductController extends Controller
     public function index()
     {
         //
-        return Product::with('bundle')->get();
+        return Product::with('bundle')->paginate(5);
     }
 
     /**
@@ -44,9 +44,8 @@ class ProductController extends Controller
         if($request->type == Cts::BUNDLE_PRODUCT_TYPE)
         {
             //e.g. json expected ids of products that should be bundled e.g [1,3]
-            $product->bundle()->sync( json_decode($request->bundledItems, false));
-            $product->bundledItems = $product->bundle;
-            unset($product->bundle); //maintain consistency of variable naming from 'bundle' to 'bundledItems'
+            $product->bundle()->sync( json_decode($request->bundle, false));
+            $product->load('bundle');
         }
 
         return  $product;
@@ -64,8 +63,7 @@ class ProductController extends Controller
 
         if($product->type == Cts::BUNDLE_PRODUCT_TYPE) //check if product is a bundle to save processing added queries
         {
-            $product->bundledItems = $product->bundle;
-            unset($product->bundle); // consistency in naming variables
+            $product->load('bundle');
         }
 
         return $product;
@@ -86,15 +84,14 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         //update except for bundled items data
-        $product->update($request->except('bundledItems'));
+        $product->update($request->except('bundle'));
 
         //update bundled items - if product is a bundle then sync the records for the relationships and attach then to the result
         if($product->type == Cts::BUNDLE_PRODUCT_TYPE)
         {
             //e.g. json expected ids of products that should be bundled e.g [1,3]
-            $product->bundle()->sync( json_decode($request->bundledItems, false));
-            $product->bundledItems = $product->bundle;
-            unset($product->bundle); //maintain consistency of variable naming from 'bundle' to 'bundledItems'
+            $product->bundle()->sync( json_decode($request->bundle, false));
+            $product->load('bundle');
         }
 
         return  $product;

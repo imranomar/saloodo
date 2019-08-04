@@ -14,9 +14,9 @@ class CreateProductProduct extends Migration
     public function up()
     {
         Schema::create('product_product', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('bundle_id');
-            $table->integer('product_id');
+            $table->bigIncrements('id')->unsigned();
+            $table->integer('bundle_id')->unsigned();
+            $table->integer('product_id')->unsigned();
             $table->timestamps();
         });
     }

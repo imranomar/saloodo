@@ -14,7 +14,7 @@ class AddDiscountTypeColumnToProductsTables extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->boolean("discount_type")->default(0);
+            $table->boolean("discount_type")->default(0)->unsigned();
         });
     }
 

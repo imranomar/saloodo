@@ -11,7 +11,7 @@ class Product extends Model
     //properties that are writable
     protected $fillable = ['title','price','type','discount','discount_type'];
 
-    protected $appends = ['price_without_discount','price_with_currency']; //requires snake case
+    protected $appends = ['price_without_discount','price_with_symbol']; //requires snake case
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -24,8 +24,18 @@ class Product extends Model
     public function getPriceAttribute($value)
     {
         //apply discount on price
-        $discount = $this->attributes['discount'];
-        $discount_type = $this->attributes['discount_type'];
+        $discount = 0;
+        $discount_type = 0;
+
+        if(isset($this->attributes['discount']))
+        {
+            $discount = $this->attributes['discount'];
+        }
+
+        if(isset($this->attributes['discount_type']))
+        {
+            $discount_type = $this->attributes['discount_type'];
+        }
 
         //covert from cents to euros
         $price = $value / 100;
@@ -44,7 +54,7 @@ class Product extends Model
         return number_format($price,2);
     }
 
-    public function getPriceWithCurrencyAttribute()
+    public function getPriceWithSymbolAttribute()
     {
         return Cts::CURRENCY_SYMBOL . $this->getPriceAttribute( $this->attributes['price']);
     }
@@ -60,22 +70,5 @@ class Product extends Model
         //divide cents by 100 to return in euros
         $this->attributes['price'] = $value * 100;
     }
-
-//    public function setDiscountAttribute($value)
-//    {
-//        if($value>$this->attributes['price'] && $this->attributes['discount_type'] == Cts::DISCOUNT_AMOUNT_TYPE )
-//        {
-//            throw new Exception('Discount is greater than the price of the product');
-//        }
-//
-//        if($value>$this->attributes['price'] && $this->attributes['discount_type'] == Cts::DISCOUNT_AMOUNT_TYPE )
-//        {
-//            throw new Exception('Discount is greater than the price of the product');
-//        }
-//
-//    }
-
-
-
 
 }

@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Cts;
 use \App\Order;
+use Exception;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+
+    public function __construct()
+    {
+        //user should be registered and have a role of admin to do all except viewing product details
+        $this->middleware(['auth:api','admin'])->except(['store', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return Order::all();
+        return Order::with('products')->paginate(10);
     }
 
     /**
@@ -25,17 +34,29 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $order  = Order::create($request->all());
 
-        //if sync products in this order
         if($request->products)
         {
+            $sum = 0;
+            $order  = Order::create($request->all());
+
+            //sync products in this order
             //e.g. array expected should be [1=>['quantity'=>3],2=>['quantity'=>22]]
-            //e.g. json expected ids with their quantities print_r(json_decode('{ "1": { "quantity": "22" },"6":
-            // { "quantity": "33" }}', true));
+            //e.g. json 'products' expected ids & quantities { "1": { "quantity": "22" },"6": { "quantity": "33" }};
             $arr_prods_and_quantities = json_decode($request->products,true);
-            $order->products()->sync( $arr_prods_and_quantities);
-            $order->products_list = $order->products;
+            $order->products()->sync($arr_prods_and_quantities);
+            $order->load('products');
+            foreach ($order->products as $product)
+            {
+                $sum += $product->price;
+            }
+            $order->total = $sum;
+            $order->save();
+
+        }
+        else
+        {
+            throw new Exception('Order has no products specified');
         }
 
         return  $order;
