@@ -6,6 +6,7 @@ use App\Cts;
 use \App\Order;
 use Exception;
 use Illuminate\Http\Request;
+use App\Http\Requests\OrderRequest;
 
 class OrderController extends Controller
 {
@@ -32,7 +33,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
 
         if($request->products)
@@ -80,7 +81,7 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OrderRequest $request, $id)
     {
         $order = Order::findOrFail($id);
 

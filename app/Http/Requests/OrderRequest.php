@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ProductExists;
 use Illuminate\Foundation\Http\FormRequest;
 
 class OrderRequest extends FormRequest
@@ -13,7 +14,7 @@ class OrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +24,11 @@ class OrderRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        return
+        [
+            'customer_id' => 'exists:users,id',
+            'total' => 'min:0',
+            'products' => [new ProductExists],
         ];
     }
 }
