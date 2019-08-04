@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\ProductExists;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductRequest extends FormRequest
+class OrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -25,10 +24,7 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique:products|max:255',
-            'price' => 'required|integer|min:0',
-            'discount_type' => 'boolean',
-            'bundle' => [new ProductExists]
+            //
         ];
     }
 }
