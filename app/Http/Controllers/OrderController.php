@@ -82,7 +82,33 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::findOrFail($id);
+
+        if($request->products)
+        {
+            $sum = 0;
+            $order->update($request->all());
+
+            //sync products in this order
+            //e.g. array expected should be [1=>['quantity'=>3],2=>['quantity'=>22]]
+            //e.g. json 'products' expected ids & quantities { "1": { "quantity": "22" },"6": { "quantity": "33" }};
+            $arr_prods_and_quantities = json_decode($request->products,true);
+            $order->products()->sync($arr_prods_and_quantities);
+            $order->load('products');
+            foreach ($order->products as $product)
+            {
+                $sum += $product->price;
+            }
+            $order->total = $sum;
+            $order->save();
+
+        }
+        else
+        {
+            throw new Exception('Order has no products specified');
+        }
+
+        return $order;
     }
 
     /**

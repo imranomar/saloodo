@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['customer_id'];
+    protected $fillable = ['customer_id','delivered','total'];
 
     protected $appends = ['total_with_symbol'];
 
     public function products()
     {
-        return $this->belongsToMany('\App\Product')->withPivot('quantity');;
+        return $this->belongsToMany('\App\Product')->withPivot('quantity');
     }
 
 //    public function getTotalAttribute()

@@ -26,8 +26,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-        return Product::with('bundle')->paginate(5);
+        return Product::with('bundle')->paginate(10);
     }
 
     /**
