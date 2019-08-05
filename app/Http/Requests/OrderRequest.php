@@ -5,6 +5,11 @@ namespace App\Http\Requests;
 use App\Rules\ProductExistForOrders;
 use Illuminate\Foundation\Http\FormRequest;
 
+
+/**
+ * Validation when order created or updated
+ *
+ */
 class OrderRequest extends FormRequest
 {
     /**
@@ -28,7 +33,7 @@ class OrderRequest extends FormRequest
         [
             'customer_id' => 'exists:users,id',
             'total' => 'min:0',
-            'products' => [new ProductExistForOrders],
+            'products' => [new ProductExistForOrders], //all products should exist
         ];
     }
 }

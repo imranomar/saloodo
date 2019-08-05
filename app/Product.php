@@ -21,6 +21,7 @@ class Product extends Model
         return $this->belongsToMany('App\Product', 'product_product', 'bundle_id', 'product_id');
     }
 
+    //calculate price with discount , also converted to euros
     public function getPriceAttribute($value)
     {
         //apply discount on price
@@ -54,11 +55,13 @@ class Product extends Model
         return number_format($price,2);
     }
 
+    //calculate price with currency symbol
     public function getPriceWithSymbolAttribute()
     {
         return Cts::CURRENCY_SYMBOL . $this->getPriceAttribute( $this->attributes['price']);
     }
 
+    //calculate price without discount
     public function getPriceWithoutDiscountAttribute()
     {
         return number_format($this->attributes['price']/ 100,2);

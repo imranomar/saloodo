@@ -5,6 +5,10 @@ namespace App\Http\Requests;
 use App\Rules\ProductExists;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Validation when product is created or updated
+ *
+ */
 class ProductRequest extends FormRequest
 {
     /**
@@ -28,7 +32,7 @@ class ProductRequest extends FormRequest
             'title' => 'required|unique:products|max:255',
             'price' => 'required|integer|min:0',
             'discount_type' => 'boolean',
-            'bundle' => [new ProductExists]
+            'bundle' => [new ProductExists] //all bundled products should exist
         ];
     }
 }

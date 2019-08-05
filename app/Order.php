@@ -26,15 +26,15 @@ class Order extends Model
 //        return $sum;
 //    }
 //
-
+    //total sh
     public function getTotalAttribute($value)
     {
-        return $value / 100;
+        return $value / 100; //convert to euro
     }
 
     public function setTotalAttribute($value)
     {
-        $this->attributes['total'] = $value * 100;
+        $this->attributes['total'] = $value * 100;  //convert to cents
     }
 
     public function getTotalWithSymbolAttribute()

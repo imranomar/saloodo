@@ -29,10 +29,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request)
 });
 
 //view all orders of a particular customer - cab be factorized to a seperate controller with more customer functions
-Route::get('/customer/{id}/orders', function ($id)
-{
-    return User::where('id',$id)->findOrFail($id)->orders()->with('products')->paginate(Cts::ITEMS_PER_PAGE_PAGING);
-});
+Route::post('/customer/{id}/orders', 'CustomerController@getOrdersOfCustomer');
+Route::post('/customer/{id}', 'CustomerController@getCustomerDetails');
 
 //signup
 Route::post('/signup', "Auth\RegisterController@register");

@@ -14,7 +14,7 @@ class OrderController extends Controller
 
     public function __construct()
     {
-        //need to signed in to access all
+        //all need to be signed in to access all
         $this->middleware(['auth:api']);
 
         //admin can  : update,destroy,index
@@ -22,7 +22,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * All orders list
      *
      * @return \Illuminate\Http\Response
      */
@@ -32,7 +32,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Order - create
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -50,6 +50,8 @@ class OrderController extends Controller
             $arr_prods_and_quantities = json_decode($request->products,true);
             $order->products()->sync($arr_prods_and_quantities);
             $order->load('products');
+
+            //store sum of order in order table
             foreach ($order->products as $product)
             {
                 $sum += $product->price;
@@ -67,7 +69,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Order display
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -93,7 +95,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Order - update
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -109,7 +111,6 @@ class OrderController extends Controller
             $order->update($request->all());
 
             //sync products in this order
-            //e.g. array expected should be [1=>['quantity'=>3],2=>['quantity'=>22]]
             //e.g. json 'products' expected ids & quantities { "1": { "quantity": "22" },"6": { "quantity": "33" }};
             $arr_prods_and_quantities = json_decode($request->products,true);
             $order->products()->sync($arr_prods_and_quantities);
@@ -131,7 +132,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Order - delete
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
