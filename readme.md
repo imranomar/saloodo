@@ -82,6 +82,10 @@ Requirements: php7, composer, mysql
 
 .download from github - https://github.com/imranomar/solodoo-laravel.git
 
+.run composer update
+
+.run npm install
+
 .setup the .env file for your database
 
 .run the folowing in the root folder:
