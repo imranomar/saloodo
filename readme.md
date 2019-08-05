@@ -78,7 +78,7 @@ Make sure the following are writable:
 
 TO INSTALL
 ----------
-Requirements: php7, composer, mysql
+Requirements: php7, composer, mysql, nodejs
 
 .download from github - https://github.com/imranomar/solodoo-laravel.git
 
