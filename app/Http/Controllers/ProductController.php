@@ -21,17 +21,17 @@ class ProductController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Products - list all.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return Product::with('bundle')->paginate(10);
+        return Product::with('bundle')->paginate(Cts::ITEMS_PER_PAGE_PAGING);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Product - create.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -52,7 +52,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Product - get a product
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -72,7 +72,7 @@ class ProductController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * Product - update
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -99,13 +99,14 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Product - delete
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Product::destroy($id);
+        $product = Product::findOrFail($id);
+        $product->destroy($id);
     }
 }

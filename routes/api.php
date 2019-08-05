@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use \App\Product;
 use App\User;
+use App\Cts;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,16 +16,23 @@ use App\User;
 |
 */
 
+//all products routes
 Route::resource('product','ProductController');
+
+//all order routes
 Route::resource('order','OrderController');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+//user details
+Route::middleware('auth:api')->get('/user', function (Request $request)
+{
     return $request->user();
 });
 
-Route::get('/customer/{id}/orders', function ($id) {
-    //return User::with('orders','orders.products')->paginate(10)->findOrFail(1);
-    return User::where('id',$id)->findOrFail($id)->orders()->with('products')->paginate(2);
+//view all orders of a particular customer - cab be factorized to a seperate controller with more customer functions
+Route::get('/customer/{id}/orders', function ($id)
+{
+    return User::where('id',$id)->findOrFail($id)->orders()->with('products')->paginate(Cts::ITEMS_PER_PAGE_PAGING);
 });
 
+//signup
 Route::post('/signup', "Auth\RegisterController@register");

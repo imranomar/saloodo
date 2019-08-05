@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\ProductExists;
+use App\Rules\ProductExistForOrders;
 use Illuminate\Foundation\Http\FormRequest;
 
 class OrderRequest extends FormRequest
@@ -28,7 +28,7 @@ class OrderRequest extends FormRequest
         [
             'customer_id' => 'exists:users,id',
             'total' => 'min:0',
-            'products' => [new ProductExists],
+            'products' => [new ProductExistForOrders],
         ];
     }
 }

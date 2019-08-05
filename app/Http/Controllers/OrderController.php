@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cts;
 use \App\Order;
 use Exception;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
 
@@ -13,8 +14,11 @@ class OrderController extends Controller
 
     public function __construct()
     {
-        //user should be registered and have a role of admin to do all except viewing product details
-        $this->middleware(['auth:api','admin'])->except(['store', 'show']);
+        //need to signed in to access all
+        $this->middleware(['auth:api']);
+
+        //admin can  : update,destroy,index
+        $this->middleware(['admin'])->except(['store', 'show',]); //
     }
 
     /**
@@ -24,7 +28,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return Order::with('products')->paginate(10);
+        return Order::with('products')->paginate(Cts::ITEMS_PER_PAGE_PAGING);
     }
 
     /**
@@ -42,7 +46,6 @@ class OrderController extends Controller
             $order  = Order::create($request->all());
 
             //sync products in this order
-            //e.g. array expected should be [1=>['quantity'=>3],2=>['quantity'=>22]]
             //e.g. json 'products' expected ids & quantities { "1": { "quantity": "22" },"6": { "quantity": "33" }};
             $arr_prods_and_quantities = json_decode($request->products,true);
             $order->products()->sync($arr_prods_and_quantities);
@@ -71,7 +74,18 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        return Order::with('products')->findOrFail($id);
+        if(Auth::check())
+        {
+            $user = Auth::user();
+            $order = Order::findOrFail($id);
+
+            if($order->customer_id !== $user->id)
+            {
+                return response('Unauthorized',Cts::HTTP_STATUS_UNAUTHORIZED);
+            }
+            return Order::with('products')->findOrFail($id);
+        }
+
     }
 
     /**
@@ -120,6 +134,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->destroy($id);
     }
 }

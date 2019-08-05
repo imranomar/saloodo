@@ -410,7 +410,7 @@ fetch(url, {
 <p><code>DELETE oauth/personal-access-tokens/{token_id}</code></p>
 <!-- END_bae65df80fd9d72a01439241a9ea20d0 -->
 <!-- START_dc538d69a8586a7a3c36d4393cee42e6 -->
-<h2>Display a listing of the resource.</h2>
+<h2>Products - list all.</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -438,7 +438,7 @@ fetch(url, {
 <p><code>GET api/product</code></p>
 <!-- END_dc538d69a8586a7a3c36d4393cee42e6 -->
 <!-- START_2d62ba7cf16a7d6db447375e13e86c34 -->
-<h2>Store a newly created resource in storage.</h2>
+<h2>Products - create.</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -460,7 +460,7 @@ fetch(url, {
 <p><code>POST api/product</code></p>
 <!-- END_2d62ba7cf16a7d6db447375e13e86c34 -->
 <!-- START_1fcbf5d495e6ada99ea017e9ae32b380 -->
-<h2>Display the specified resource.</h2>
+<h2>Product - get a product</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -488,7 +488,7 @@ fetch(url, {
 <p><code>GET api/product/{product}</code></p>
 <!-- END_1fcbf5d495e6ada99ea017e9ae32b380 -->
 <!-- START_682327ab9f9deab00b7c603486ad935a -->
-<h2>Update the specified resource in storage.</h2>
+<h2>Product - update</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -511,7 +511,7 @@ fetch(url, {
 <p><code>PATCH api/product/{product}</code></p>
 <!-- END_682327ab9f9deab00b7c603486ad935a -->
 <!-- START_587b06cc0dc038b2e049f3a1baa2593b -->
-<h2>Remove the specified resource from storage.</h2>
+<h2>Product - delete</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -532,6 +532,151 @@ fetch(url, {
 <h3>HTTP Request</h3>
 <p><code>DELETE api/product/{product}</code></p>
 <!-- END_587b06cc0dc038b2e049f3a1baa2593b -->
+<!-- START_d2e080af51835880674d3e2496ed6e62 -->
+<h2>Display a listing of the resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/order" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/order");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/order</code></p>
+<!-- END_d2e080af51835880674d3e2496ed6e62 -->
+<!-- START_cd95d3e90339c282e0b608349e80a381 -->
+<h2>Store a newly created resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "/api/order" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/order");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/order</code></p>
+<!-- END_cd95d3e90339c282e0b608349e80a381 -->
+<!-- START_9c4ec790d3f07a332b085b8efc187b58 -->
+<h2>Display the specified resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/order/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/order/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (500):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Server Error"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/order/{order}</code></p>
+<!-- END_9c4ec790d3f07a332b085b8efc187b58 -->
+<!-- START_7e6a4bec449169aefb738a72d134f654 -->
+<h2>Update the specified resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "/api/order/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/order/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT api/order/{order}</code></p>
+<p><code>PATCH api/order/{order}</code></p>
+<!-- END_7e6a4bec449169aefb738a72d134f654 -->
+<!-- START_13abedc865b3acba6db70061a19ecb09 -->
+<h2>Remove the specified resource from storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE "/api/order/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/order/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>DELETE api/order/{order}</code></p>
+<!-- END_13abedc865b3acba6db70061a19ecb09 -->
+<!-- START_90f45d502fd52fdc0b289e55ba3c2ec6 -->
+<h2>api/signup</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "/api/signup" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/signup");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/signup</code></p>
+<!-- END_90f45d502fd52fdc0b289e55ba3c2ec6 -->
 <!-- START_66e08d3cc8222573018fed49e121e96d -->
 <h2>Show the application&#039;s login form.</h2>
 <blockquote>
@@ -629,7 +774,7 @@ fetch(url, {
 <p><code>GET register</code></p>
 <!-- END_ff38dfb1bd1bb7e1aa24b4e1792a9768 -->
 <!-- START_d7aad7b5ac127700500280d511a3db01 -->
-<h2>Handle a registration request for the application.</h2>
+<h2>register</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>

@@ -20,5 +20,9 @@ class Cts
     const HTTP_STATUS_UNAUTHORIZED = 401;
     const HTTP_STATUS_OK = 200;
 
+    //price currency
     const CURRENCY_SYMBOL = "€" ;
+
+    //paging
+    const ITEMS_PER_PAGE_PAGING = 10;
 }

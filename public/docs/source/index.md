@@ -552,7 +552,7 @@ fetch(url, {
 <!-- END_bae65df80fd9d72a01439241a9ea20d0 -->
 
 <!-- START_dc538d69a8586a7a3c36d4393cee42e6 -->
-## Display a listing of the resource.
+## Products - list all.
 
 > Example request:
 
@@ -592,7 +592,7 @@ fetch(url, {
 <!-- END_dc538d69a8586a7a3c36d4393cee42e6 -->
 
 <!-- START_2d62ba7cf16a7d6db447375e13e86c34 -->
-## Store a newly created resource in storage.
+## Products - create.
 
 > Example request:
 
@@ -625,7 +625,7 @@ fetch(url, {
 <!-- END_2d62ba7cf16a7d6db447375e13e86c34 -->
 
 <!-- START_1fcbf5d495e6ada99ea017e9ae32b380 -->
-## Display the specified resource.
+## Product - get a product
 
 > Example request:
 
@@ -665,7 +665,7 @@ fetch(url, {
 <!-- END_1fcbf5d495e6ada99ea017e9ae32b380 -->
 
 <!-- START_682327ab9f9deab00b7c603486ad935a -->
-## Update the specified resource in storage.
+## Product - update
 
 > Example request:
 
@@ -700,7 +700,7 @@ fetch(url, {
 <!-- END_682327ab9f9deab00b7c603486ad935a -->
 
 <!-- START_587b06cc0dc038b2e049f3a1baa2593b -->
-## Remove the specified resource from storage.
+## Product - delete
 
 > Example request:
 
@@ -731,6 +731,219 @@ fetch(url, {
 
 
 <!-- END_587b06cc0dc038b2e049f3a1baa2593b -->
+
+<!-- START_d2e080af51835880674d3e2496ed6e62 -->
+## Display a listing of the resource.
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/order" 
+```
+
+```javascript
+const url = new URL("/api/order");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/order`
+
+
+<!-- END_d2e080af51835880674d3e2496ed6e62 -->
+
+<!-- START_cd95d3e90339c282e0b608349e80a381 -->
+## Store a newly created resource in storage.
+
+> Example request:
+
+```bash
+curl -X POST "/api/order" 
+```
+
+```javascript
+const url = new URL("/api/order");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+
+### HTTP Request
+`POST api/order`
+
+
+<!-- END_cd95d3e90339c282e0b608349e80a381 -->
+
+<!-- START_9c4ec790d3f07a332b085b8efc187b58 -->
+## Display the specified resource.
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/order/1" 
+```
+
+```javascript
+const url = new URL("/api/order/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (500):
+
+```json
+{
+    "message": "Server Error"
+}
+```
+
+### HTTP Request
+`GET api/order/{order}`
+
+
+<!-- END_9c4ec790d3f07a332b085b8efc187b58 -->
+
+<!-- START_7e6a4bec449169aefb738a72d134f654 -->
+## Update the specified resource in storage.
+
+> Example request:
+
+```bash
+curl -X PUT "/api/order/1" 
+```
+
+```javascript
+const url = new URL("/api/order/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+
+### HTTP Request
+`PUT api/order/{order}`
+
+`PATCH api/order/{order}`
+
+
+<!-- END_7e6a4bec449169aefb738a72d134f654 -->
+
+<!-- START_13abedc865b3acba6db70061a19ecb09 -->
+## Remove the specified resource from storage.
+
+> Example request:
+
+```bash
+curl -X DELETE "/api/order/1" 
+```
+
+```javascript
+const url = new URL("/api/order/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+
+### HTTP Request
+`DELETE api/order/{order}`
+
+
+<!-- END_13abedc865b3acba6db70061a19ecb09 -->
+
+<!-- START_90f45d502fd52fdc0b289e55ba3c2ec6 -->
+## api/signup
+> Example request:
+
+```bash
+curl -X POST "/api/signup" 
+```
+
+```javascript
+const url = new URL("/api/signup");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+
+### HTTP Request
+`POST api/signup`
+
+
+<!-- END_90f45d502fd52fdc0b289e55ba3c2ec6 -->
 
 <!-- START_66e08d3cc8222573018fed49e121e96d -->
 ## Show the application&#039;s login form.
@@ -875,8 +1088,7 @@ null
 <!-- END_ff38dfb1bd1bb7e1aa24b4e1792a9768 -->
 
 <!-- START_d7aad7b5ac127700500280d511a3db01 -->
-## Handle a registration request for the application.
-
+## register
 > Example request:
 
 ```bash
