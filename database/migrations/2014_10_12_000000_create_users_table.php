@@ -24,12 +24,6 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        $user = new User();
-        $user->name = "admin";
-        $user->email = "admin@gmail.com";
-        $user->type = \App\Cts::ROLE_ADMIN;
-        $user->password = "qweqwe123";
-        $user->save();
 
     }
 
