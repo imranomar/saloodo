@@ -35,7 +35,7 @@ Proucts -only admin can create, update, delete
 
 Note: to make a user admin. chang role_id to 1 for that user in the users table
 
-Note: the migrations automatically create an admin user. email: admin@gmail.com  password:qweqwe123
+Note: the migrations automatically create an admin user. email: admin@gmail.com Password: provided in email
 
 LOGIC
 -----
