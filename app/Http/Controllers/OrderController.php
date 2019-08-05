@@ -79,9 +79,13 @@ class OrderController extends Controller
             $user = Auth::user();
             $order = Order::findOrFail($id);
 
-            if($order->customer_id !== $user->id)
+            //user can only see his own order, unless its admin
+            if(!$user->isAdmin())
             {
-                return response('Unauthorized',Cts::HTTP_STATUS_UNAUTHORIZED);
+                if($order->customer_id !== $user->id)
+                {
+                    return response('Unauthorized',Cts::HTTP_STATUS_UNAUTHORIZED);
+                }
             }
             return Order::with('products')->findOrFail($id);
         }
