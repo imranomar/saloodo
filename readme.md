@@ -4,6 +4,7 @@
 <p align="center">
 ======
 
+
 API Documentation
 =============
 Please feel freee to contact me :
@@ -11,6 +12,8 @@ Please feel freee to contact me :
 Imran Omar Bukhsh<br>
 Email: imranomar@gmail.com<br>
 Mobile: 00971 50 4225054<br>
+
+NOTE: Has been created with Larevel 5.8.29
 
 NOTE: The api is available online running at http://3.86.155.55/api/...
 
@@ -32,6 +35,7 @@ Proucts -only admin can create, update, delete
 
 Note: to make a user admin. chang role_id to 1 for that user in the users table
 
+Note: the migrations automatically create an admin user. email: admin@gmail.com Password: provided in email
 
 LOGIC
 -----
@@ -74,9 +78,13 @@ Make sure the following are writable:
 
 TO INSTALL
 ----------
-Requirements: php7, composer, mysql
+Requirements: php7, composer, mysql, nodejs
 
 .download from github - https://github.com/imranomar/solodoo-laravel.git
+
+.run composer update
+
+.run npm install
 
 .setup the .env file for your database
 
