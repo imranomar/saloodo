@@ -18,8 +18,10 @@ class Cts
     const ROLE_GUEST = 0;
 
     //http statuses
-    const HTTP_STATUS_UNAUTHORIZED = 401;
     const HTTP_STATUS_OK = 200;
+    const HTTP_STATUS_CREATED = 201;
+    const HTTP_STATUS_UNAUTHORIZED = 401;
+    const HTTP_UNPROCESSABLE_ENTITY = 422;
 
     //price currency
     const CURRENCY_SYMBOL = "€" ;

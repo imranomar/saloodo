@@ -3,10 +3,13 @@
 namespace Tests\Feature;
 
 use App\Cts;
+use App\User;
 use App\Product;
+use function MongoDB\BSON\toJSON;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Passport\Passport;
 
 class ProductTest extends TestCase
 {
@@ -17,16 +20,16 @@ class ProductTest extends TestCase
         parent::setUp();
 
         //Lets do this right
-        $this->withHeader('HTTP_CONTENT_TYPE','application/json');
+        //$this->withHeader('HTTP_CONTENT_TYPE','application/json');
         $this->withHeader('HTTP_ACCEPT','application/json');
     }
 
     /**
-     * Test viewing product
+     * Test can view product
      *
      * @return void
      */
-    public function test_can_create_and_view_product()
+    public function test_can_view_product()
     {
         //create dummy product
         $product = factory(Product::class)->create();
@@ -42,15 +45,17 @@ class ProductTest extends TestCase
         ]);
     }
 
-    public function test_can_create_and_view_product_with_bundle()
+    /**
+     * Test can create and view bundled product
+     *
+     * @return void
+     */
+    public function test_can_view_bundled_product()
     {
         //create dummy products
         $product_1 = factory(Product::class)->create();
         $product_2 = factory(Product::class)->create();
         $product_3 = factory(Product::class)->create();
-
-
-
 
         //product 2 and 3 are bundles with 1
         $product_1->bundle()->sync([$product_2->id,$product_3->id]);
@@ -84,6 +89,40 @@ class ProductTest extends TestCase
         ]);
     }
 
+    /**
+     * Test cannot create a bundle with a product that does not exists in db
+     *
+     * @return void
+     */
+    public function test_can_create_product()
+    {
+
+        //enable passport
+        \Artisan::call('passport:install');
+
+        //create admin user
+        $user = factory(User::class)->create();
+        $user->role_id = 1;
+        $user->save();
+        Passport::actingAs($user);
+
+        $token = $user->generateToken();
+
+        $headers = [ 'Authorization' => 'Bearer $token'];
+
+        $data = [
+            'title' => "testing title 1",
+            'price' => 22,
+            'discount' => 0,
+            'discount_type' => 0,
+        ];
+
+        $this->actingAs($user)->post(route('product.store'), $data, $headers)
+            ->assertStatus(Cts::HTTP_STATUS_CREATED)
+            ->assertJson($data);
+    }
+
+
 
 
     /**
@@ -91,7 +130,7 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    public function test_can_delete_post()
+    public function test_can_delete_product()
     {
         $product = factory(Product::class)->create();
         $this->delete(route('product.destroy', $product->id))->assertStatus(Cts::HTTP_STATUS_UNAUTHORIZED);

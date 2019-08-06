@@ -47,9 +47,15 @@ class User extends Authenticatable
         return false;
     }
 
+    //relationship to orders
     public function orders()
     {
         return $this->hasMany('\App\Order','customer_id');
+    }
+
+    //used in testing
+    public function generateToken() {
+        return $this->createToken('my-oauth-client-name')->accessToken;
     }
 
 }
