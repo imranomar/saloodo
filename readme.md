@@ -7,13 +7,13 @@
 
 API Documentation
 =============
-Please feel freee to contact me :
+Please feel free to contact me :
 
 Imran Omar Bukhsh<br>
 Email: imranomar@gmail.com<br>
 Mobile: 00971 50 4225054<br>
 
-NOTE: Has been created with Larevel 5.8.29
+NOTE: Has been created with Laravel 5.8.29
 
 NOTE: The api is available online running at http://3.86.155.55/api/...
 
@@ -30,10 +30,10 @@ Orders - only admin can update, view all orders, and destroy orders
        - user can create and view his own orders only
        - user needs to be logged in to view his orders
 
-Proucts -only admin can create, update, delete
+Products -only admin can create, update, delete
 	-users can view products list and product details
 
-Note: to make a user admin. chang role_id to 1 for that user in the users table
+Note: to make a user admin. change ‘role_id’  to 1 for that user in the users table
 
 Note: the migrations automatically create an admin user. email: admin@gmail.com Password: provided in email
 
@@ -51,7 +51,7 @@ VALIDATIONS CODE
 
 .Note: product title should be unique
 
-.For product bubdles and orders the product ids will be checked if they exists
+.For product bundles and orders the product ids will be checked if they exists
 
 
 DATABASE
@@ -66,7 +66,7 @@ CODE DETAILS
 
 .model can be be found in /app
 
-.contollers can be found in /app/http/controllers
+.controllers can be found in /app/http/controllers
 
 FILE PERMISSIONS
 ----------------
@@ -86,9 +86,9 @@ Requirements: php7, composer, mysql, nodejs
 
 .run npm install
 
-.setup the .env file for your database
+.setup the .env file for your database settings and create the database
 
-.run the folowing in the root folder:
+.run the following in the root folder:
 
 php artisan migrate
 
