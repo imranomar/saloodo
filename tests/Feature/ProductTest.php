@@ -27,7 +27,6 @@ class ProductTest extends TestCase
     /**
      * Test can view product
      *
-     * @return void
      */
     public function test_can_view_product()
     {
@@ -46,9 +45,8 @@ class ProductTest extends TestCase
     }
 
     /**
-     * Test can create and view bundled product
+     * Test can view bundled product
      *
-     * @return void
      */
     public function test_can_view_bundled_product()
     {
@@ -90,11 +88,10 @@ class ProductTest extends TestCase
     }
 
     /**
-     * Test cannot create a bundle with a product that does not exists in db
+     * Test admin can create a product
      *
-     * @return void
      */
-    public function test_can_create_product()
+    public function test_admin_can_create_product()
     {
 
         //enable passport
@@ -102,7 +99,7 @@ class ProductTest extends TestCase
 
         //create admin user
         $user = factory(User::class)->create();
-        $user->role_id = 1;
+        $user->role_id = Cts::ROLE_ADMIN;
         $user->save();
         Passport::actingAs($user);
 
@@ -110,29 +107,64 @@ class ProductTest extends TestCase
 
         $headers = [ 'Authorization' => 'Bearer $token'];
 
-        $data = [
+        $data_sent = [
             'title' => "testing title 1",
-            'price' => 22,
-            'discount' => 0,
+            'price' => 25,
+            'discount' => 5,
             'discount_type' => 0,
         ];
 
-        $this->actingAs($user)->post(route('product.store'), $data, $headers)
+        $data_received = [
+            'title' => "testing title 1",
+            'price' => 20.00,
+            'discount' => 5,
+            'discount_type' => 0,
+            'price_with_symbol' => Cts::CURRENCY_SYMBOL . "20.00"
+        ];
+
+        $this->actingAs($user)->post(route('product.store'), $data_sent, $headers)
             ->assertStatus(Cts::HTTP_STATUS_CREATED)
-            ->assertJson($data);
+            ->assertJson($data_received);
     }
 
 
+    /**
+     * Test non-admin cannot create a product
+     *
+     */
+    public function test_non_admin_cannot_create_product()
+    {
 
+        //enable passport
+        \Artisan::call('passport:install');
+
+        //create user with non admin role
+        $user = factory(User::class)->create();
+        $user->role_id = Cts::ROLE_GUEST;
+        $user->save();
+        Passport::actingAs($user);
+
+        $token = $user->generateToken();
+
+        $headers = [ 'Authorization' => 'Bearer $token'];
+
+        $data_sent = [];
+
+        $this->actingAs($user)->post(route('product.store'), $data_sent, $headers)
+            ->assertStatus(Cts::HTTP_STATUS_UNAUTHORIZED);
+
+    }
 
     /**
      * Test product deletion
      *
-     * @return void
      */
     public function test_can_delete_product()
     {
         $product = factory(Product::class)->create();
         $this->delete(route('product.destroy', $product->id))->assertStatus(Cts::HTTP_STATUS_UNAUTHORIZED);
     }
+
+    //Test non admin cannot user should not be able to create a user
+
 }
