@@ -80,7 +80,7 @@ TO INSTALL
 ----------
 Requirements: php7, composer, mysql, nodejs
 
-.download from github - https://github.com/imranomar/solodoo-laravel.git
+.download from github - https://github.com/imranomar/salodoo.git
 
 .run composer update
 
