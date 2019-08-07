@@ -15,7 +15,7 @@ Mobile: 00971 50 4225054<br>
 
 NOTE: Has been created with Laravel 5.8.29
 
-NOTE: The api is available online running at http://3.86.155.55/api/...
+NOTE: The api is available online running at http://3.86.155.55/public/api/product
 
 NOTE: api documentation can be found here at
 https://documenter.getpostman.com/view/7566754/SVYqQKF7?version=latest
